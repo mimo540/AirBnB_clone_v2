@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-""" script Adds third view func that redirects and has default val for variable """
+"""Add fifth view func that displays HTML page if n is int """
 
 from flask import Flask
+from flask import render_template
 
 
 app = Flask(__name__)
@@ -22,7 +23,7 @@ def hello():
 
 @app.route('/c/<text>')
 def c_text(text):
-    """ her replace text with variable. """
+    """ replace text with variable. """
     text = text.replace('_', ' ')
     return 'C {}'.format(text)
 
@@ -30,9 +31,23 @@ def c_text(text):
 @app.route('/python/')
 @app.route('/python/<text>')
 def python_text(text='is cool'):
-    """ again replace anthor more text with another variable. """
+    """ replace more text with another variable. """
     text = text.replace('_', ' ')
     return 'Python {}'.format(text)
+
+
+@app.route('/number/<int:n>')
+def number_text(n):
+    """ replace with int only if given int. """
+    n = str(n)
+    return '{} is a number'.format(n)
+
+
+@app.route('/number_template/<int:n>')
+def html_num(n):
+    """ display html if n is int. """
+    n = str(n)
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == '__main__':
